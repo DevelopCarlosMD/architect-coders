@@ -6,6 +6,7 @@ plugins {
     id("architectcoders.android.application")
     id("architectcoders.android.application.compose")
     id("architectcoders.di.library.compose")
+    alias(libs.plugins.google.gms.google.services)
 }
 
 android {
@@ -60,6 +61,7 @@ dependencies {
     implementation(libs.androidx.activity.compose)
     implementation(libs.androidx.navigation.compose)
     implementation(libs.play.services.location)
+    implementation(libs.firebase.analytics)
     androidTestImplementation(libs.hilt.android.testing)
     kspAndroidTest(libs.hilt.compiler)
     androidTestImplementation(libs.androidx.room.ktx)

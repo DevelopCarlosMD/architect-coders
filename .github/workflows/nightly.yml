@@ -44,6 +44,8 @@ jobs:
 distribute:
   runs-on: ubuntu-latest
 
+  needs: ["assemble"]
+
   steps:
     - name: Download APK
       uses: actions/download-artifact@master
