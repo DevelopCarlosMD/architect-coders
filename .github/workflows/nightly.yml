@@ -1,0 +1,44 @@
+name: Nightly Build
+
+on:
+  workflow_dispatch:
+
+jobs:
+  schedule:
+    - cron: '0 0 * * *' # Minutes, hours, day of month, month, day of week
+
+  workflow_dispatch:
+    assemble:
+      runs-on: ubuntu-latest
+
+      steps:
+        - name: Checkout
+          uses: actions/checkout@v4
+
+        - name: Setup Java JDK
+          uses: actions/setup-java@v4
+          with:
+            java-version: 17
+            distribution: "temurin"
+            cache: gradle
+
+        - name: Setup Gradle
+          uses: gradle/actions/setup-gradle@v3
+
+        - name: Assemble APK
+          run: ./gradlew assemble
+
+        - name: Bump version
+          uses: chkfung/android-version-actions@v1.2.2
+          with:
+            gradlePath: app/build.gradle.kts
+            versionCode: ${{github.run_number}}
+
+        - name: Assemble APK
+          run: ./gradlew assemble
+
+        - name: Upload APK
+          uses: actions/upload-artifact@v4
+          with:
+            name: Release APK
+            path: app/build/outputs/apk/release/app-release-unsigned.apk
