@@ -1,8 +1,8 @@
 name: Nightly Build
 
 on:
-  schedule:
-    - cron: '0 0 * * *' # Minutes, hours, day of month, month, day of week
+  #schedule:
+   # - cron: '0 0 * * *' # Minutes, hours, day of month, month, day of week
   workflow_dispatch:
 
 jobs:
